@@ -64,5 +64,40 @@
             tools:listitem="@layout/item_rover" />
 
 
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/ivError"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_error"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beklenmeyen Bir Hata Oluştu"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/ivError"
+            app:layout_constraintEnd_toEndOf="@id/ivError"
+            app:layout_constraintTop_toBottomOf="@id/ivError"
+            tools:visibility="visible"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
