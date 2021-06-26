@@ -1,6 +1,6 @@
 package com.ihaydin.nasaroverproject.remote
 
-import com.ihaydin.nasaroverproject.Constant
+import com.ihaydin.nasaroverproject.util.Constant
 import okhttp3.Interceptor
 import okhttp3.Response
 

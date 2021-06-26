@@ -1,4 +1,4 @@
-package com.ihaydin.nasaroverproject
+package com.ihaydin.nasaroverproject.util
 
 object Constant{
 
