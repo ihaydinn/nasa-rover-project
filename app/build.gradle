@@ -44,6 +44,7 @@ dependencies {
     def retrofitVersion = '2.9.0'
     def glideVersion = '4.11.0'
     def rxJavaVersion = '3.0.0'
+    def lifecycleVersion = '2.3.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
@@ -68,5 +69,12 @@ dependencies {
 
     //Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
 }
