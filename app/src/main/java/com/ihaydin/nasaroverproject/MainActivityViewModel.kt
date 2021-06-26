@@ -16,6 +16,8 @@ class MainActivityViewModel(application: Application) : BaseViewModel(applicatio
     private val disposable = CompositeDisposable()
 
     val mPhotosSelectedCamera = MutableLiveData<DataResponse>()
+    val mAllCameraPhotos = MutableLiveData<DataResponse>()
+
     val mError = MutableLiveData<Boolean>()
     val mLoading = MutableLiveData<Boolean>()
 
@@ -40,6 +42,27 @@ class MainActivityViewModel(application: Application) : BaseViewModel(applicatio
         )
     }
 
+    fun getAllCameraPhotos(roverName: String, page: Int) {
+        mLoading.value = true
+
+        disposable.add(
+            apiClient.getAllCameraPhotos(roverName, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<DataResponse>() {
+                    override fun onSuccess(t: DataResponse) {
+                        mAllCameraPhotos.value = t
+                        mLoading.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        mLoading.value = false
+                        mError.value = true
+                    }
+
+                })
+        )
+    }
 
     override fun onCleared() {
         super.onCleared()
