@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Nasa Rover Project</string>
+
+    <string-array name="rover_camera">
+        <item>ALL CAMERA</item>
+        <item>FHAZ</item>
+        <item>RHAZ</item>
+        <item>MAST</item>
+        <item>CHEMCAM</item>
+        <item>MAHLI</item>
+        <item>MARDI</item>
+        <item>NAVCAM</item>
+        <item>PANCAM</item>
+        <item>MINITES</item>
+    </string-array>
 </resources>
