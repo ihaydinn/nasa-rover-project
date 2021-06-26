@@ -43,7 +43,7 @@ dependencies {
 
     def retrofitVersion = '2.9.0'
     def glideVersion = '4.11.0'
-    def rxJavaVersion = '3.0.0'
+    def rxJavaVersion = '2.1.1'
     def lifecycleVersion = '2.3.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -64,8 +64,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
     //RxJava
-    implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
-    implementation "io.reactivex.rxjava3:rxandroid:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
 
     //Coroutine
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
