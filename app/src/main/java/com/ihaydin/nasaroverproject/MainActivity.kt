@@ -25,14 +25,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mRoverName = "curiosity"
+        mRoverName = Rover.CURIOSITY.name
         mCameraName = Camera.ALL.name
 
         tabRoverSelected()
         selectCamera()
-
-        makeRequest()
-        observeLiveData()
 
     }
 
@@ -53,25 +50,27 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
                     8 ->{ mCameraName = Camera.PANCAM.name }
                     9 ->{ mCameraName = Camera.MINITES.name }
                 }
-                viewModel.getPhotosSelectedCamera(mRoverName!!, page, mCameraName!!)
-                viewModel.mPhotosSelectedCamera.observe(this@MainActivity, Observer {
-                    it.let {
-                        dataBinding.rvPhotos.layoutManager = LinearLayoutManager(applicationContext)
-                        dataBinding.rvPhotos.adapter = PhotosAdapter(it.photos){
-                        }
-                    }
-                })
 
+                if (mCameraName == Camera.ALL.name){
+                    allCameraPhotosRequest()
+                } else {
+                    selectedCameraPhotosRequest()
+                }
             }
         }
     }
 
-
-    private fun makeRequest(){
+    private fun allCameraPhotosRequest(){
         viewModel.getAllCameraPhotos(mRoverName!!, 1)
+        observeAllCameraPhotos()
     }
 
-    private fun observeLiveData(){
+    private fun selectedCameraPhotosRequest(){
+        viewModel.getPhotosSelectedCamera(mRoverName!!, page, mCameraName!!)
+        observeSelectedCameraPhotos()
+    }
+
+    private fun observeAllCameraPhotos(){
         viewModel.mAllCameraPhotos.observe(this, Observer {
             it.let {
                 dataBinding.rvPhotos.layoutManager = LinearLayoutManager(applicationContext)
@@ -79,7 +78,21 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
                 }
             }
         })
+        observeLoadingAndError()
+    }
 
+    private fun observeSelectedCameraPhotos(){
+        viewModel.mPhotosSelectedCamera.observe(this, Observer {
+            it.let {
+                dataBinding.rvPhotos.layoutManager = LinearLayoutManager(applicationContext)
+                dataBinding.rvPhotos.adapter = PhotosAdapter(it.photos){
+                }
+            }
+        })
+        observeLoadingAndError()
+    }
+
+    private fun observeLoadingAndError(){
         viewModel.mLoading.observe(this, Observer {
             if (it){
                 dataBinding.pbLoading.visibility = View.VISIBLE
@@ -111,18 +124,27 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
                 when(tab!!.position){
                     0 -> {
                         mRoverName = Rover.CURIOSITY.name
-                        makeRequest()
-                        observeLiveData()
+                        if (mCameraName == Camera.ALL.name){
+                            allCameraPhotosRequest()
+                        } else {
+                            selectedCameraPhotosRequest()
+                        }
                     }
                     1 -> {
                         mRoverName = Rover.OPPORTUNITY.name
-                        makeRequest()
-                        observeLiveData()
+                        if (mCameraName == Camera.ALL.name){
+                            allCameraPhotosRequest()
+                        } else {
+                            selectedCameraPhotosRequest()
+                        }
                     }
                     2 -> {
                         mRoverName = Rover.SPIRIT.name
-                        makeRequest()
-                        observeLiveData()
+                        if (mCameraName == Camera.ALL.name){
+                            allCameraPhotosRequest()
+                        } else {
+                            selectedCameraPhotosRequest()
+                        }
                     }
                 }
             }
