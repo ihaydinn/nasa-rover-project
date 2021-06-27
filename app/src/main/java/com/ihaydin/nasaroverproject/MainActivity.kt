@@ -116,6 +116,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
                 dataBinding.rvPhotos.visibility = View.VISIBLE
             }
         })
+
+        viewModel.mEmptyList.observe(this, Observer {
+            if (it){
+                dataBinding.ivEmptyList.visibility = View.VISIBLE
+                dataBinding.tvEmptyList.visibility = View.VISIBLE
+            } else {
+                dataBinding.ivEmptyList.visibility = View.GONE
+                dataBinding.tvEmptyList.visibility = View.GONE
+            }
+        })
     }
 
     private fun tabRoverSelected(){
