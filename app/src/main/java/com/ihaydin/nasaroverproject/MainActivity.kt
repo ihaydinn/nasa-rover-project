@@ -1,16 +1,17 @@
 package com.ihaydin.nasaroverproject
 
+import android.R.attr.country
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.ihaydin.nasaroverproject.base.BaseActivity
 import com.ihaydin.nasaroverproject.databinding.ActivityMainBinding
 import com.ihaydin.nasaroverproject.entity.DataResponse
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
 
@@ -75,6 +76,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
             it.let {
                 dataBinding.rvPhotos.layoutManager = LinearLayoutManager(applicationContext)
                 dataBinding.rvPhotos.adapter = PhotosAdapter(it.photos){
+                    openPopUp(it)
                 }
             }
         })
@@ -86,10 +88,19 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
             it.let {
                 dataBinding.rvPhotos.layoutManager = LinearLayoutManager(applicationContext)
                 dataBinding.rvPhotos.adapter = PhotosAdapter(it.photos){
+                    openPopUp(it)
                 }
             }
         })
         observeLoadingAndError()
+    }
+
+    private fun openPopUp(photo: DataResponse.Photo){
+        val popup = PhotoDialog()
+        val bundle = Bundle()
+        bundle.putParcelable("detail", photo)
+        popup.setArguments(bundle)
+        popup.show(supportFragmentManager, "Photo")
     }
 
     private fun observeLoadingAndError(){
