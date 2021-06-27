@@ -1,6 +1,6 @@
 package com.ihaydin.nasaroverproject.remote
 
-import com.ihaydin.nasaroverproject.Constant
+import com.ihaydin.nasaroverproject.util.Constant
 import com.ihaydin.nasaroverproject.entity.DataResponse
 import io.reactivex.Single
 import okhttp3.OkHttpClient

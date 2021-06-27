@@ -1,4 +1,4 @@
-package com.ihaydin.nasaroverproject
+package com.ihaydin.nasaroverproject.base
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

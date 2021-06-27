@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="photo"
+            type="com.ihaydin.nasaroverproject.entity.DataResponse.Photo" />
 
     </data>
 
@@ -24,6 +27,7 @@
                 android:layout_height="72dp"
                 android:src="@drawable/img_default"
                 android:scaleType="centerCrop"
+                android:imageUrl="@{photo.imgSrc}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -35,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:layout_marginStart="4dp"
+                android:text="@{photo.camera.fullName}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

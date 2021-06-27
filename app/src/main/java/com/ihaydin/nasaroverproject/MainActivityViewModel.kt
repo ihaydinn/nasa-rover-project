@@ -2,6 +2,7 @@ package com.ihaydin.nasaroverproject
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.ihaydin.nasaroverproject.base.BaseViewModel
 import com.ihaydin.nasaroverproject.entity.DataResponse
 import com.ihaydin.nasaroverproject.remote.ApiClient
 import io.reactivex.android.schedulers.AndroidSchedulers
