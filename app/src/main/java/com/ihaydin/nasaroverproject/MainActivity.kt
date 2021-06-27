@@ -2,15 +2,21 @@ package com.ihaydin.nasaroverproject
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.ihaydin.nasaroverproject.base.BaseActivity
 import com.ihaydin.nasaroverproject.databinding.ActivityMainBinding
+import com.ihaydin.nasaroverproject.entity.DataResponse
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() {
 
     private var mRoverName : String? = null
+    private var mCameraName : String? = null
+    private var page = 1
 
     override fun getLayoutRes(): Int = R.layout.activity_main
 
@@ -20,13 +26,46 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
         super.onCreate(savedInstanceState)
 
         mRoverName = "curiosity"
+        mCameraName = Camera.ALL.name
 
         tabRoverSelected()
+        selectCamera()
 
         makeRequest()
         observeLiveData()
 
     }
+
+    private fun selectCamera() {
+        dataBinding.spnCamera.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+            override fun onItemSelected(parent: AdapterView<*>?, v: View?, p: Int, id: Long) {
+                when(p){
+                    0 ->{ mCameraName = Camera.ALL.name }
+                    1 ->{ mCameraName = Camera.FHAZ.name }
+                    2 ->{ mCameraName = Camera.RHAZ.name }
+                    3 ->{ mCameraName = Camera.MAST.name }
+                    4 ->{ mCameraName = Camera.CHEMCAM.name }
+                    5 ->{ mCameraName = Camera.MAHLI.name }
+                    6 ->{ mCameraName = Camera.MARDI.name }
+                    7 ->{ mCameraName = Camera.NAVCAM.name }
+                    8 ->{ mCameraName = Camera.PANCAM.name }
+                    9 ->{ mCameraName = Camera.MINITES.name }
+                }
+                viewModel.getPhotosSelectedCamera(mRoverName!!, page, mCameraName!!)
+                viewModel.mPhotosSelectedCamera.observe(this@MainActivity, Observer {
+                    it.let {
+                        dataBinding.rvPhotos.layoutManager = LinearLayoutManager(applicationContext)
+                        dataBinding.rvPhotos.adapter = PhotosAdapter(it.photos){
+                        }
+                    }
+                })
+
+            }
+        }
+    }
+
 
     private fun makeRequest(){
         viewModel.getAllCameraPhotos(mRoverName!!, 1)
@@ -71,17 +110,17 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab!!.position){
                     0 -> {
-                        mRoverName = "curiosity"
+                        mRoverName = Rover.CURIOSITY.name
                         makeRequest()
                         observeLiveData()
                     }
                     1 -> {
-                        mRoverName = "opportunity"
+                        mRoverName = Rover.OPPORTUNITY.name
                         makeRequest()
                         observeLiveData()
                     }
                     2 -> {
-                        mRoverName = "spirit"
+                        mRoverName = Rover.SPIRIT.name
                         makeRequest()
                         observeLiveData()
                     }
@@ -96,4 +135,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
         })
     }
+
+    enum class Camera {
+        ALL, FHAZ, RHAZ, MAST, CHEMCAM, MAHLI, MARDI, NAVCAM, PANCAM, MINITES
+    }
+
+    enum class Rover {
+        CURIOSITY, OPPORTUNITY, SPIRIT
+    }
+
 }
