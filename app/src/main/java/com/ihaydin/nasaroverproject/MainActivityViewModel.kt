@@ -21,6 +21,7 @@ class MainActivityViewModel(application: Application) : BaseViewModel(applicatio
 
     val mError = MutableLiveData<Boolean>()
     val mLoading = MutableLiveData<Boolean>()
+    val mEmptyList = MutableLiveData<Boolean>()
 
     fun getPhotosSelectedCamera(roverName: String, page: Int, camera: String) {
         mLoading.value = true
@@ -33,6 +34,7 @@ class MainActivityViewModel(application: Application) : BaseViewModel(applicatio
                     override fun onSuccess(t: DataResponse) {
                         mPhotosSelectedCamera.value = t
                         mLoading.value = false
+                        mEmptyList.value = t.photos.isEmpty()
                     }
 
                     override fun onError(e: Throwable) {
@@ -54,6 +56,7 @@ class MainActivityViewModel(application: Application) : BaseViewModel(applicatio
                     override fun onSuccess(t: DataResponse) {
                         mAllCameraPhotos.value = t
                         mLoading.value = false
+                        mEmptyList.value = t.photos.isEmpty()
                     }
 
                     override fun onError(e: Throwable) {
