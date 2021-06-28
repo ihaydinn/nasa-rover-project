@@ -10,3 +10,6 @@
  - [Retrofit](https://square.github.io/retrofit/)
  - [OkHttp](https://square.github.io/okhttp/)
  - [Glide](https://github.com/bumptech/glide)
+
+## Git Flow
+<img src="https://github.com/ihaydinn/nasa-rover-project/blob/develop/git-flow.png"> 
